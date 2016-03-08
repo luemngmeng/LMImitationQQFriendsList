@@ -43,17 +43,22 @@
     // 添加文本视图
     [self addTitleLabel];
     
+    
     // 添加图片视图
     [self addImageView];
     
+    
     // 添加底部的横线
     [self addLineLabel];
+    
     
     // 添加点击手势
     UITapGestureRecognizer *tapReconginzer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tableHeaderViewTapClick:)];
     [self addGestureRecognizer:tapReconginzer];
 }
 
+
+#pragma mark - Private Method
 #pragma mark 外部可编辑的文本视图
 - (void)addTitleLabel {
     
@@ -64,6 +69,7 @@
     [self addSubview:_titleLabel];
 }
 
+
 #pragma mark 外部可编辑的文本视图
 - (void)addImageView {
 
@@ -73,6 +79,8 @@
     [self addSubview:_imageView];
 }
 
+
+#pragma mark 添加底部横线
 - (void)addLineLabel {
 
     UILabel *linebale = [[UILabel alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 1, self.frame.size.width, 1)];
@@ -80,6 +88,9 @@
     [self addSubview:linebale];
 }
 
+
+
+#pragma mark - Public Method
 #pragma mark 点击手势的点击事件
 - (void)tableHeaderViewTapClick:(UITapGestureRecognizer *)tap {
 
@@ -90,8 +101,8 @@
     [UIView animateWithDuration:0.08 animations:^{
         weakSelf.bgView.backgroundColor = [THEFEFF4 colorWithAlphaComponent:1.0];
     } completion:^(BOOL finished) {
-        //
         
+        //显示多层cell或者隐藏
         if ([weakSelf.delegate respondsToSelector:@selector(tableHeaderViewClickWith:)]){
             [weakSelf.delegate tableHeaderViewClickWith:self.tag];
         }
@@ -110,7 +121,7 @@
             _titleLabel.text = friednGroup.groupName;
         }
         
-        _imageView.transform = friednGroup.isExpand ? CGAffineTransformMakeRotation(M_PI) : CGAffineTransformMakeRotation(0);
+        _imageView.transform = friednGroup.isExpand ? CGAffineTransformMakeRotation(0) : CGAffineTransformMakeRotation(M_PI);
     }
 }
 @end

@@ -183,9 +183,24 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:self.defaultCellReuseIdentifier];
     }
 
-    [cell.textLabel setText:@"测试"];
-    
-    return cell;
+    if (self.titleArray.count !=0 ){
+        
+        FriendGroup *friendGroup = self.titleArray[indexPath.section];
+        if (friendGroup.isExpand){
+            return nil;
+        } else {
+            
+            NSArray *friendArray = friendGroup.friendArray;
+            if (indexPath.row < friendArray.count){
+                Friend *friend = friendArray[indexPath.row];
+               [cell.textLabel setText:friend.name];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+            return cell;
+        }
+    }
+
+    return [UITableViewCell new];
     
 }
 
@@ -267,7 +282,7 @@
     self.titleArray = @[friendGroup1,friendGroup2,friendGroup3,friendGroup4];
 }
 
-#pragma mark LMTableHeaderViewDelaget 
+#pragma mark LMTableHeaderViewDelegate
 - (void)tableHeaderViewClickWith:(NSInteger)tag {
     
     // 刷新页面
